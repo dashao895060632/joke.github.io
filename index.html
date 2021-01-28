@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>返回</title>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		 crossorigin="anonymous">
+		<style>
+			.empty-1 {margin: 1px;}
+			.empty-2 {margin: 2px;}
+			.empty-4 {margin: 4px;}
+			.empty-6 {margin: 6px;}
+			.empty-8 {margin: 8px;}
+			.empty-10 {margin: 10px;}
+			.empty-12 {margin: 12px;}
+			.empty-14 {margin: 14px;}
+			
+			html {
+			  font-size: 10px;
+			  -webkit-tap-highlight-color: rgba(0,0,0,0);
+			}
+			
+			body {
+				font-size: 14px;
+				line-height: 1.42857143;
+				background-color: #f5f5f5;
+				margin:0
+			}
+			
+			table {
+			    background-color: transparent;
+			    border-collapse: collapse;
+			}
+			
+			.main {margin: 15px;}
+			.head-img {height: 40px; width: 40px;border-radius: 10px;}
+			.pay-name {display: inline-block;}
+	
+			.pay-info {
+				margin-top: 10px;
+				margin-bottom: 30px;
+			}
+	
+			.pay-info span {
+			    display: inline-block;
+			    vertical-align: middle;
+				font-size: 15px;
+				font-weight: 555;
+				padding-left: 2px;
+			}
+			
+			.pay-info img {
+			    vertical-align: middle;
+			}
+			
+			.pay-amount {
+				border-color: aliceblue;
+				vertical-align:middle;
+				font-size: 20px;
+			}
+			
+			.pay-amount label {
+				vertical-align:middle;
+				font-size: 30px;
+				margin-bottom: -5px;
+			}
+			
+			.pay-amount input {
+				display: inline-block;
+				vertical-align:middle;
+				background-color:transparent; 
+				border:0;
+				width: 80%;
+				padding-bottom: 5px;
+				font-size: 50px;
+			}
+			
+			.pay-amount input:focus {
+				caret-color: #f0f0f0;
+			}
+			
+			.pay-amount input::-webkit-input-placeholder {
+				color: #f0f0f0;
+				font-size: 38px;
+			}
+			
+			.amount-info label {
+				font-size: 18px;
+			}
+			
+			input:focus {
+				outline: none;
+			}
+			
+			.main .main-keyboard {
+				background-color: white;
+				position:fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				text-align: center;
+				align-items: center;
+				-webkit-flex-wrap: wrap;
+				-moz-flex-wrap: wrap;
+				-ms-flex-wrap: wrap;
+				-o-flex-wrap: wrap;
+				flex-wrap: wrap;
+				display: box;
+				display: -webkit-box;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -webkit-flex;
+				display: flex;
+			}
+			
+			.main .main-keyboard>span {
+			    width: 25%;
+			    height: 60px;
+			    border: 1px solid #ccc;
+			    border-right: 0;
+			    border-bottom: 0;
+			    font-size: 20px;
+			    text-align: center;
+			    line-height: 56px;
+				font-weight: bold;
+			}
+			
+			.payment-select {
+				background-color: white;
+				position:fixed;
+				bottom:0;
+				padding: 10px 15px 15px 15px;
+				width: 100%;
+				height: 65%;
+			}
+			
+			.payment-select hr {
+				margin-top: 10px;
+				margin-bottom: 10px;
+				color: #DCDCDC;
+			}
+			
+			.payment-select .amount-info {
+				text-align: center;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			
+			.product-info span:first-child {
+				color: darkgray;
+			}
+			
+			.product-info span:last-child {
+				float: right;
+			}
+			
+			.payment-select .amount {
+				font-size: 45px;
+			}
+			
+			.payment-select .type-info span:first-child {
+				color: darkgray;
+			}
+			
+			.payment-select .type-info img {
+				width: 13px;
+				height: 13px;
+				margin-right: 5px;
+			}
+			
+			.payment-select .type-info span:last-child {
+				float: right;
+			}
+			
+			.type-info i {
+				color: #DCDCDC;
+				padding-left: 2px;
+				font-size: 18px;
+				font-weight:bold;
+			}
+			
+			.type-info img:last-child {
+				width: 12px;
+				height: 12px;
+				padding: 0 0 0 3px;
+			}
+			
+			.payment-select .tips {
+				margin: 10px 0px 10px 0px;
+				font-size: 13px;
+				background-color: #F0F0F0;
+				padding: 14px 0px 10px 10px;
+			}
+			
+			.tips i:after {
+				content:'';
+				position: absolute;
+				left:10%;
+				margin-left:-3px;
+				width:0;
+				height: 0;
+				margin-top: -25px;
+				border-width: 8px;
+				border-style: solid;
+				border-color: transparent transparent #F0F0F0 transparent;
+			}
+			
+			.payment-btn {
+				margin-top: 40%;
+				margin-bottom: 3%;
+			}
+		
+			.payment-btn button {
+				margin: 0 7px 10px 0
+				display: inline-block;
+				width: 100%;
+				height: 48px;
+				line-height: 38px;
+				padding: 0 18px;
+				background-color: #237df8;
+				color: #fff;
+				white-space: nowrap;
+				text-align: center;
+				font-size: 18px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				vertical-align: middle;
+				outline: none;
+			}
+			
+			.payment-remind {
+				text-align: center;
+			}
+			
+			#payment-dialog {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba(0, 0, 0, 0.6);
+				display: none;
+			}
+			
+			.payment-select .close {
+				position: absolute;
+			    width: 15px;
+			    height: 15px;
+			}
+			
+			.payment-select .close::before,.payment-select .close::after {
+			    position: absolute;
+			    content: ' ';
+			    background-color: black;
+			    left: 5px;
+			    width: 2px;
+			    height: 20px;
+				font-weight: bold;
+			}
+			
+			.payment-select .close::before {
+			    transform: rotate(45deg);
+			}
+			
+			.payment-select .close::after {
+			    transform: rotate(-45deg);
+			}
+			
+			#password-dialog {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba(0, 0, 0, 0.6);
+				display: none;
+			}
+			
+			#password-dialog .password-close {
+				color: white;
+			}
+			
+			#password-dialog .password-close::before,#password-dialog .password-close::after {
+			    position: absolute;
+			    content: ' ';
+			    background-color: dimgrey;
+			    left: 25px;
+				margin-top: 10px;
+				padding-bottom: 20px;
+			    width: 1px;
+			    height: 10px;
+			}
+			
+			#password-dialog .password-close::before {
+			    transform: rotate(45deg);
+			}
+			
+			#password-dialog .password-close::after {
+			    transform: rotate(-45deg);
+			}
+			
+			#password-dialog .password-content {
+				background-color: white;
+				border-radius: 13px;
+				position:fixed;
+				margin: 80px 40px 0px 31px;
+				min-height: 250px;
+				min-width: 300px;
+				padding: 5px 15px 5px 15px;
+				text-align: center;
+			}
+			
+			#password-dialog .password-title {
+				margin-top: 35px;
+				margin-bottom: 10px;
+			}
+			
+			#password-dialog .password-title span {
+				font-size: 20px;
+				font-weight: bold;
+			}
+			
+			#password-dialog .password-amount {
+				margin-bottom: -10px;
+			}
+		
+			.password-input .real-ipt {
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 1.2rem;
+				line-height: 1.2rem;
+				opacity: 0;
+				z-index: 3;
+			}
+			
+			.password-input .surface-ipts {
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 1.2rem;
+				line-height: 1.2rem;
+				z-index: 1;
+				padding-bottom: 15px;
+			}
+			
+			.password-input .surface-ipts .surface-ipt {
+				height: 100%;
+				line-height: 5px;
+				display: flex;
+				justify-content: space-between;
+			}
+			
+			.password-input .surface-ipts .surface-ipt span {
+				width: 50px;
+				height: 50px;
+				border: 1px solid #ccc;
+				border-right: 0;
+				align-items: center;
+				padding: 0px;
+			}
+			
+			.password-input .surface-ipts .surface-ipt span:first-child {
+				border-top-left-radius:6px;
+				border-bottom-left-radius:6px;
+			}
+			
+			.password-input .surface-ipts .surface-ipt span:last-child {
+			    border: 1px solid #ccc;
+				border-top-right-radius:6px;
+				border-bottom-right-radius:6px;
+			}
+			
+			.ipt img {
+				margin-top: 17px;
+				width: 15px;
+				height: 15px;
+			}
+			
+			#password-dialog .password-keyboard {
+				background-color: white;
+				position:fixed;
+				bottom: 0;
+				width: 100%;
+				text-align: center;
+				align-items: center;
+				-webkit-flex-wrap: wrap;
+				-moz-flex-wrap: wrap;
+				-ms-flex-wrap: wrap;
+				-o-flex-wrap: wrap;
+				flex-wrap: wrap;
+				display: box;
+				display: -webkit-box;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -webkit-flex;
+				display: flex;
+			}
+			
+			#password-dialog .password-keyboard>span:first-child {
+			    border-left: 0;
+			}
+			
+			#password-dialog .password-keyboard>span {
+			    width: 33.3%;
+			    height: 60px;
+			    border: 1px solid #ccc;
+			    border-right: 0;
+			    border-bottom: 0;
+			    font-size: 20px;
+			    text-align: center;
+			    line-height: 56px;
+				font-weight: bold;
+			}
+			
+			.empty,.del {
+				background: #F0F0F0;
+			}
+			
+			.panel {
+			    margin-bottom: 20px;
+			    background-color: #fff;
+			    border: 1px solid transparent;
+				border-radius: 10px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			}
+			
+			* {
+			    -webkit-box-sizing: border-box;
+			    -moz-box-sizing: border-box;
+			    box-sizing: border-box;
+			}
+			
+			.panel-body {
+				padding: 10px;
+			}
+			
+			.main .remark {
+				width: 100%;
+			    text-align: center;
+				color: #237DF8;
+				bottom: 0;
+				padding-top: 65%;
+			}
+			
+			.main .main-keyboard table {
+			    width: 100%;
+				border: 2px;
+			}
+			
+			.main .main-keyboard td {
+			    width: 25%;
+			    height: 60px;
+			    border: 1px solid #e2ebdc;
+			    border-right: 0;
+			    border-bottom: 0;
+			    font-size: 20px;
+			    text-align: center;
+			    line-height: 56px;
+			}
+			
+			.main .main-keyboard .key-number {
+				font-weight: bold;
+			}
+			
+			.confirm-blur {
+				color: #918987;
+				background-color: #f5f5f5;
+			}
+			
+			.confirm-foucs {
+				color: #fffae8;
+				background-color: #237df8;
+			}
+			
+			#payment-success-dialog {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: url(img/success_bg.jpg) no-repeat;
+				background-size: 100%;
+				display: none;
+			}
+			
+			#payment-success-dialog .close-web {
+				color: #F0F8FF;
+				padding-top: 10px;
+				padding-right: 4%;
+				font-weight: 580;
+				float: right;
+			}
+			
+			#payment-success-dialog .amount {
+				color: #F0F8FF;
+			}
+			
+			#payment-success-dialog .title {
+				font-size: 55px;
+				padding-top: 15.5%;
+				padding-left: 38%;
+			}
+			
+			#payment-success-dialog .line {
+				padding-top: 4.6%;
+				padding-left: 85%;
+			}
+			
+			/***loading***/
+			.la-ball-beat,
+			.la-ball-beat > div {
+			    position: relative;
+			    -webkit-box-sizing: border-box;
+			       -moz-box-sizing: border-box;
+			            box-sizing: border-box;
+			}
+			.la-ball-beat {
+			    display: block;
+			    font-size: 0;
+			    color: #fff;
+			}
+			.la-ball-beat.la-dark {
+			    color: #333;
+			}
+			.la-ball-beat > div {
+			    display: inline-block;
+			    float: none;
+			    background-color: currentColor;
+			    border: 0 solid currentColor;
+			}
+			.la-ball-beat {
+			    width: 54px;
+			    height: 18px;
+			}
+			.la-ball-beat > div {
+			    width: 8px;
+			    height: 8px;
+			    margin: 4px;
+			    border-radius: 100%;
+			    -webkit-animation: ball-beat .7s -.15s infinite linear;
+			       -moz-animation: ball-beat .7s -.15s infinite linear;
+			         -o-animation: ball-beat .7s -.15s infinite linear;
+			            animation: ball-beat .7s -.15s infinite linear;
+			}
+			.la-ball-beat > div:nth-child(2n-1) {
+			    -webkit-animation-delay: -.5s;
+			       -moz-animation-delay: -.5s;
+			         -o-animation-delay: -.5s;
+			            animation-delay: -.5s;
+			}
+			.la-ball-beat.la-3x {
+			    width: 100%;
+			    height: 54px;
+				padding-top: 5px;
+			}
+			.la-ball-beat.la-3x > div {
+			    width: 7px;
+			    height: 7px;
+			    margin: 5px;
+			}
+			
+			@-webkit-keyframes ball-beat {
+			    50% {
+			        opacity: .2;
+			        -webkit-transform: scale(.2);
+			                transform: scale(.2);
+			    }
+			    100% {
+			        opacity: 1;
+			        -webkit-transform: scale(1);
+			                transform: scale(1);
+			    }
+			}
+			
+			.loading-box {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba(0, 0, 0, 0.2);
+				display: block;
+				display: flex;/*重要*/ /*横向排列*/
+				align-items: center;
+			}
+			
+			.loading-box .loading-box-content {
+				border-radius:10px;
+				width: 140px;
+				height: 140px;
+				background-color: #111310;
+				margin: 0 auto;
+			}
+			
+			.loading-box .loading-box-content img {
+				padding:20px 0 0 30px;
+				width: 80%;
+				height: 75%;
+				margin: 0 auto;
+			}
+			
+			.loading-box .loading-box-content .la-ball-beat {
+				margin-left: 32%;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="main">
+			<div class="pay-info">
+				<img class="head-img" src="img/head_img.png" />
+				<span>李红霞(*红霞)</span>
+			</div>
+
+			<div class="empty-14"></div>
+
+			<div class="panel">
+				<div class="panel-body">
+					<div class="pay-amount">
+						<label>￥</label><input type="text" id="payAmount" placeholder="输入金额" />
+					</div>
+				</div>
+			</div>
+			
+			<div class="remark">添加备注</div>
+			
+			<div class="main-keyboard">
+				<table>
+					<tbody>
+					<tr>
+						<td class="key-number">1</td>
+						<td class="key-number">2</td>
+						<td class="key-number">3</td>
+						<td class="amount-del"><img src="img/del.png"></td>
+					</tr>
+					<tr>
+						<td class="key-number">4</td>
+						<td class="key-number">5</td>
+						<td class="key-number">6</td>
+						<td id="confirm-btn" class="confirm confirm-blur" rowspan="3">付款</td>
+					</tr>
+					<tr>
+						<td class="key-number">7</td>
+						<td class="key-number">8</td>
+						<td class="key-number">9</td>
+					</tr>
+					<tr>
+						<td class="key-number" colspan="2">0</td>
+						<td class="key-number">.</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div id="payment-dialog">
+			<div class="payment-select">
+				<div class="close-info"><i class="close"></i></div>
+				<div class="amount-info"><label>￥</label><span class="amount">1.00</span></div>
+				<div class="product-info"><span>订单信息</span><span>商品</span></div>
+				<hr />
+				<div class="type-info"><span>付款方式</span><span><img src="img/hb.png" />花呗<img src="img/triangle_right.png"></span></div>
+				<div class="tips"><i></i>正在使用当面花服务，本次付款可用花呗</div>
+				<div class="payment-btn"><button id="payment-now">立即付款</button></div>
+				<div class="payment-remind"><img src="img/rm.png" /></div>
+			</div>
+		</div>
+		
+		<div id="password-dialog">
+			<div class="password-content">
+				<div class="password-close">X</div>
+				<div class="password-title"><span>请输入支付密码</span></div>
+				<div class="password-amount">付款<span class="amount">1.00</span>元</div>
+				<div class="password-input">
+					<input type="tel" maxlength="6" class="real-ipt">
+					<div class="surface-ipts">
+						<div class="surface-ipt">
+							<span class="ipt"></span>
+							<span class="ipt"></span>
+							<span class="ipt"></span>
+							<span class="ipt"></span>
+							<span class="ipt"></span>
+							<span class="ipt"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="password-keyboard">
+				<span class="figure">1</span>
+				<span class="figure">2</span>
+				<span class="figure">3</span>
+				<span class="figure">4</span>
+				<span class="figure">5</span>
+				<span class="figure">6</span>
+				<span class="figure">7</span>
+				<span class="figure">8</span>
+				<span class="figure">9</span>
+				<span class="empty"><i></i></span>
+				<span class="figure">0</span>
+				<span class="del"><img src="img/del.png"></span>
+			</div>
+		</div>
+		
+		<div id="payment-success-dialog">
+			<div class="close-web">完成</div>
+			<div class="amount title">10.00</div>
+			<div class="amount line">10.00</div>
+		</div>
+		
+		<div class="loading-model"></div>
+	</body>
+	<script>
+		document.activeElement.blur();
+		
+		var paymentModal = document.getElementById('payment-dialog');
+
+		window.onclick = function(event) {
+			if (event.target == paymentModal) {
+				$("#payment-dialog").hide();
+				$("#payAmount").focus();
+			}
+		}
+
+		$(function() {
+			
+			$("#payAmount").focus(function() {
+				document.activeElement.blur();
+			});
+			
+			$("#payAmount").keyup(function() {
+				var payAmount = $(this).val();
+				if(payAmount && !$(".confirm").hasClass('confirm-foucs')) {
+					$(".confirm").removeClass('confirm-blur');
+					$(".confirm").addClass('confirm-foucs');
+				}
+				
+				if(!payAmount) {
+					$(".confirm").removeClass('confirm-foucs');
+					$(".confirm").addClass('confirm-blur');
+				}
+			});
+			
+			$(".key-number").click(function() {
+				var payAmount = $(this).text();
+				payAmount = $("#payAmount").val() + payAmount;
+				var reg = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/;
+				if (!reg.test(payAmount)) {
+					return;
+				}
+				
+				$("#payAmount").val(payAmount);
+				if(payAmount && !$("#confirm-btn").hasClass('confirm-foucs')) {
+					$(".confirm").removeClass('confirm-blur');
+					$(".confirm").addClass('confirm-foucs');
+					$("#confirm-btn").text('确认');
+				}
+			});
+			
+			$(".amount-del").click(function() {
+				var payAmount = $("#payAmount").val();
+				if (payAmount) {
+					payAmount = payAmount.substring(0, payAmount.length - 1);
+					$("#payAmount").val(payAmount);
+				}
+				
+				if (!payAmount) {
+					$(".confirm").removeClass('confirm-foucs');
+					$(".confirm").addClass('confirm-blur');
+					$("#confirm-btn").text('付款');
+				}
+			});
+			
+			$('#confirm-btn').click(function() {
+				if($(this).hasClass('confirm-blur')) {
+					return;
+				}
+				
+				document.activeElement.blur();
+				var payAmount = $("#payAmount").val();
+				$(".amount").text(parseFloat(payAmount).toFixed(2));
+				$("#payment-dialog").show();
+			});
+			
+			$(".close").click(function() {
+				$("#payment-dialog").hide();
+				$("#payAmount").focus();
+			});
+			
+			$("#payment-now").click(function() {
+				$("#password-dialog").show();
+			});
+			
+			$(".password-close").click(function() {
+				$("#password-dialog").hide();
+			});
+			
+			var dhHtml = '<img src="img/dh.jpg"/>';
+			var password = [];
+			var loadingBoxHtml = '<div class="loading-box"><div class="loading-box-content"><img src="img/logo.png"/><div class="la-ball-beat la-3x"><div></div><div></div><div></div></div></div></div>';
+			
+			$(".figure").click(function() {
+				if(password.length >= 6) {
+					return;
+				}
+				$(".ipt:eq("+password.length+")").html(dhHtml);
+				password.push($(this).text());
+				if(password.length >= 6) {
+					$(".loading-model").append(loadingBoxHtml);
+					setTimeout(function() {
+						$(".loading-box").html('');
+						$("#payment-success-dialog").show();
+					}, 800);
+				}
+			});
+			
+			$(".del").click(function() {
+				if(password.length <= 0) {
+					return;
+				}
+				var index = password.length - 1;
+				password.splice(index, 1);
+				$(".ipt:eq("+index+")").html('');
+			});
+			
+			$(".close-web").click(function() {
+				AlipayJSBridge.call('closeWebview');
+			});
+		});
+		
+	</script>
+</html>
